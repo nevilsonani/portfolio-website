@@ -79,12 +79,19 @@ export function Contact() {
 
             {/* Right side */}
             <div className="glass p-10 rounded-3xl relative">
-              <form className="space-y-6">
+              {/* Updated form action to your Formspree URL */}
+              <form
+                className="space-y-6"
+                action="https://formspree.io/f/mwvvladd"
+                method="POST"
+              >
                 <div className="space-y-2">
                   <label className="text-sm font-medium ml-1">Name</label>
                   <Input
+                    name="name"
                     placeholder="Your name"
                     className="bg-white/5 border-white/10 focus:border-primary h-12"
+                    required
                   />
                 </div>
 
@@ -92,20 +99,24 @@ export function Contact() {
                   <label className="text-sm font-medium ml-1">Email</label>
                   <Input
                     type="email"
+                    name="email"
                     placeholder="Your email"
                     className="bg-white/5 border-white/10 focus:border-primary h-12"
+                    required
                   />
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium ml-1">Message</label>
                   <Textarea
+                    name="message"
                     placeholder="Tell me about your project"
                     className="bg-white/5 border-white/10 focus:border-primary min-h-[150px] resize-none"
+                    required
                   />
                 </div>
 
-                <Button className="w-full bg-primary hover:bg-primary/90 h-14 text-lg">
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90 h-14 text-lg">
                   Send Message
                   <Send className="w-5 h-5 ml-2" />
                 </Button>
