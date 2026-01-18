@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -8,11 +8,14 @@ import { Send, Mail, MapPin, Linkedin, Github } from "lucide-react"
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false)
+  const formRef = useRef<HTMLFormElement>(null) // form ref
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const formData = new FormData(e.currentTarget)
+    if (!formRef.current) return // safety check
+
+    const formData = new FormData(formRef.current)
     const data = Object.fromEntries(formData.entries())
 
     try {
@@ -24,7 +27,7 @@ export function Contact() {
 
       if (res.ok) {
         setSubmitted(true)
-        e.currentTarget.reset()
+        formRef.current.reset() // safely reset the form
       } else {
         alert("Oops! Something went wrong. Please try again.")
       }
@@ -112,7 +115,7 @@ export function Contact() {
                   Thank you! Your message has been sent.
                 </div>
               ) : (
-                <form className="space-y-6" onSubmit={handleSubmit}>
+                <form ref={formRef} className="space-y-6" onSubmit={handleSubmit}>
                   <div className="space-y-2">
                     <label className="text-sm font-medium ml-1">Name</label>
                     <Input
