@@ -1,11 +1,39 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Send, Mail, MapPin, Linkedin, Github } from "lucide-react"
 
 export function Contact() {
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const formData = new FormData(e.currentTarget)
+    const data = Object.fromEntries(formData.entries())
+
+    try {
+      const res = await fetch("https://formspree.io/f/mwvvladd", {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: JSON.stringify(data),
+      })
+
+      if (res.ok) {
+        setSubmitted(true)
+        e.currentTarget.reset()
+      } else {
+        alert("Oops! Something went wrong. Please try again.")
+      }
+    } catch (error) {
+      console.error(error)
+      alert("Oops! Something went wrong. Please try again.")
+    }
+  }
+
   return (
     <section id="contact" className="py-20 md:py-32">
       <div className="container mx-auto px-4">
@@ -79,48 +107,49 @@ export function Contact() {
 
             {/* Right side */}
             <div className="glass p-10 rounded-3xl relative">
-              {/* Updated form action to your Formspree URL */}
-              <form
-                className="space-y-6"
-                action="https://formspree.io/f/mwvvladd"
-                method="POST"
-              >
-                <div className="space-y-2">
-                  <label className="text-sm font-medium ml-1">Name</label>
-                  <Input
-                    name="name"
-                    placeholder="Your name"
-                    className="bg-white/5 border-white/10 focus:border-primary h-12"
-                    required
-                  />
+              {submitted ? (
+                <div className="text-center text-xl font-bold text-primary animate-fadeIn">
+                  Thank you! Your message has been sent.
                 </div>
+              ) : (
+                <form className="space-y-6" onSubmit={handleSubmit}>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium ml-1">Name</label>
+                    <Input
+                      name="name"
+                      placeholder="Your name"
+                      className="bg-white/5 border-white/10 focus:border-primary h-12"
+                      required
+                    />
+                  </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium ml-1">Email</label>
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Your email"
-                    className="bg-white/5 border-white/10 focus:border-primary h-12"
-                    required
-                  />
-                </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium ml-1">Email</label>
+                    <Input
+                      type="email"
+                      name="email"
+                      placeholder="Your email"
+                      className="bg-white/5 border-white/10 focus:border-primary h-12"
+                      required
+                    />
+                  </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium ml-1">Message</label>
-                  <Textarea
-                    name="message"
-                    placeholder="Tell me about your project"
-                    className="bg-white/5 border-white/10 focus:border-primary min-h-[150px] resize-none"
-                    required
-                  />
-                </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium ml-1">Message</label>
+                    <Textarea
+                      name="message"
+                      placeholder="Tell me about your project"
+                      className="bg-white/5 border-white/10 focus:border-primary min-h-[150px] resize-none"
+                      required
+                    />
+                  </div>
 
-                <Button type="submit" className="w-full bg-primary hover:bg-primary/90 h-14 text-lg">
-                  Send Message
-                  <Send className="w-5 h-5 ml-2" />
-                </Button>
-              </form>
+                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90 h-14 text-lg">
+                    Send Message
+                    <Send className="w-5 h-5 ml-2" />
+                  </Button>
+                </form>
+              )}
             </div>
           </div>
         </div>
@@ -129,6 +158,17 @@ export function Contact() {
       <footer className="mt-32 py-12 border-t border-white/5 text-center text-muted-foreground text-sm">
         <p>&copy; {new Date().getFullYear()} Nevil Sonani. All rights reserved.</p>
       </footer>
+
+      {/* Tailwind fade-in animation */}
+      <style jsx>{`
+        .animate-fadeIn {
+          animation: fadeIn 0.6s ease-in-out;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </section>
   )
 }
