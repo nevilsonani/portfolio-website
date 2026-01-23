@@ -2,17 +2,17 @@
 
 export function Experience() {
   const experiences = [
-    {
-      role: "Full Stack & AI Engineer",
-      company: "LOAM AI",
-      period: "Jan 2026 – Present",
-      description: [
-        "Developing cutting-edge AI-powered solutions focusing on system intelligence and scalability",
-        "Implementing full-stack architectures integrating modern LLMs and agentic workflows",
-        "Collaborating on high-impact products at the intersection of web technology and artificial intelligence",
-      ],
-      current: true,
-    },
+    // {
+    //   role: "Full Stack & AI Engineer",
+    //   company: "LOAM AI",
+    //   period: "Jan 2026 – Present",
+    //   description: [
+    //     "Developing cutting-edge AI-powered solutions focusing on system intelligence and scalability",
+    //     "Implementing full-stack architectures integrating modern LLMs and agentic workflows",
+    //     "Collaborating on high-impact products at the intersection of web technology and artificial intelligence",
+    //   ],
+    //   current: true,
+    // },
     {
       role: "Backend Developer",
       company: "Elitist Software Solutions LLP",
