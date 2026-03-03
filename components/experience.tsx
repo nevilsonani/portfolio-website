@@ -20,7 +20,7 @@ export function Experience() {
       period: "Sep 2025 – Dec 2025",
       description: [
         "Built end-to-end e-commerce platform handling product catalog, cart management, and order processing",
-        "Integrated Razorpay and Stripe payment gateways with secure webhook handling",
+        "Integrated Razorpay payment gateways with secure webhook handling",
         "Implemented Delhivery API for multi-courier shipping with real-time tracking",
         "Developed authentication system with JWT tokens, OTP verification, and role-based access control",
       ],
