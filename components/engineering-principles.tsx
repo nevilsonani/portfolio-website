@@ -1,6 +1,7 @@
 "use client"
 
-import { Cpu, ShieldCheck, Zap, Layers, RefreshCcw, Compass, Activity, Terminal } from "lucide-react"
+import { motion } from "framer-motion"
+import { Cpu, ShieldCheck, Zap, Layers, RefreshCcw, Compass, Activity, Terminal, Sparkles } from "lucide-react"
 
 export function EngineeringPrinciples() {
   const principles = [
@@ -43,14 +44,20 @@ export function EngineeringPrinciples() {
   ]
 
   return (
-    <section id="principles" className="py-24 bg-[#07080c] relative border-t border-slate-900">
-      <div className="container mx-auto px-4 max-w-6xl space-y-12">
+    <section id="principles" className="py-24 sm:py-32 relative border-t border-slate-900/80">
+      <div className="container mx-auto px-4 max-w-6xl space-y-12 sm:space-y-16">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-800">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-800"
+        >
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 font-mono text-xs text-emerald-400 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-emerald-400 uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
               <Terminal className="w-3.5 h-3.5" />
-              <span>06 // Engineering Philosophy</span>
+              <span>Engineering Principles & Philosophy</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-slate-100">
               Core Engineering Mindset
@@ -59,19 +66,24 @@ export function EngineeringPrinciples() {
           <p className="text-slate-400 text-sm max-w-md font-mono leading-relaxed">
             The fundamental standards that guide how I design, architect, and ship production software.
           </p>
-        </div>
+        </motion.div>
 
         {/* Principles Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {principles.map((p, idx) => {
             const Icon = p.icon
             return (
-              <div
+              <motion.div
                 key={idx}
-                className="tech-card p-6 rounded-2xl border border-slate-800 space-y-4 hover:border-emerald-500/40 transition-all duration-300"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                whileHover={{ y: -4, transition: { duration: 0.25 } }}
+                className="tech-card p-6 rounded-2xl border border-slate-800 space-y-4 hover:border-emerald-500/40 hover:shadow-[0_10px_35px_-5px_rgba(16,185,129,0.2)] transition-all duration-300"
               >
                 <div className="flex items-center justify-between">
-                  <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-[0_0_12px_rgba(16,185,129,0.2)]">
                     <Icon className="w-5 h-5" />
                   </div>
                   <span className="font-mono text-xs text-slate-500 font-bold">{p.num}</span>
@@ -79,7 +91,7 @@ export function EngineeringPrinciples() {
 
                 <h3 className="text-lg font-bold font-mono text-slate-100">{p.title}</h3>
                 <p className="text-xs text-slate-400 leading-relaxed font-sans">{p.desc}</p>
-              </div>
+              </motion.div>
             )
           })}
         </div>

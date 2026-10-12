@@ -8,32 +8,32 @@ const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono"
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nevilsonani.vercel.app"),
-  title: "Nevil Sonani — Full Stack AI Engineer & Systems Architect",
+  title: "Nevil Sonani — Full Stack AI & Systems Studio",
   description:
-    "Production Full Stack AI Engineer building intelligent agents, scalable microservices, Django backends, enterprise ERPs, and high-performance SaaS applications.",
+    "Engineering autonomous AI agents, enterprise automation, custom Shopify infrastructure, scalable Python/Django backends, and ERP systems for ambitious companies.",
   keywords: [
-    "Full Stack AI Engineer",
+    "Full Stack AI Studio",
     "AI Systems Architect",
-    "GPT-4 Function Calling",
+    "Autonomous AI Agents",
+    "Shopify Custom Apps",
     "Django Backend Developer",
-    "Next.js Developer",
-    "ERP Systems Developer",
+    "Enterprise ERP Systems",
     "Microservices Architect",
     "Nevil Sonani",
   ],
   authors: [{ name: "Nevil Sonani", url: "https://nevilsonani.vercel.app" }],
   openGraph: {
-    title: "Nevil Sonani — Full Stack AI Engineer",
+    title: "Nevil Sonani — Full Stack AI & Systems Studio",
     description:
-      "Production Full Stack AI Engineer building intelligent agents, scalable microservices, Django backends, and enterprise systems.",
+      "Engineering autonomous AI agents, enterprise automation, custom Shopify infrastructure, and scalable backends for ambitious companies.",
     url: "https://nevilsonani.vercel.app",
-    siteName: "Nevil Sonani Portfolio",
+    siteName: "Nevil Sonani Studio",
     images: [
       {
         url: "/profile.jpg",
         width: 800,
         height: 800,
-        alt: "Nevil Sonani - Full Stack AI Engineer",
+        alt: "Nevil Sonani - Full Stack AI & Systems Studio",
       },
     ],
     locale: "en_US",
@@ -52,7 +52,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark scroll-smooth">
-      <body className={`${geist.className} ${geistMono.variable} bg-[#07080c] text-foreground antialiased selection:bg-sky-500/20 selection:text-sky-400`}>
+      <body className={`${geist.className} ${geistMono.variable} bg-[#08090e] text-foreground antialiased selection:bg-sky-500/20 selection:text-sky-400`}>
         {children}
         <Analytics />
       </body>

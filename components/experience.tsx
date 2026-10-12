@@ -1,6 +1,7 @@
 "use client"
 
-import { Briefcase, Calendar, MapPin, CheckCircle2, Cpu, Server, Layers, ShieldCheck } from "lucide-react"
+import { motion } from "framer-motion"
+import { Briefcase, Calendar, MapPin, CheckCircle2, Cpu, Server, Layers, ShieldCheck, Sparkles } from "lucide-react"
 
 export function Experience() {
   const experiences = [
@@ -10,7 +11,7 @@ export function Experience() {
       location: "India",
       period: "Jan 2026 – Present",
       current: true,
-      phase: "PHASE 03 // AI ENGINEERING & SYSTEMS INTELLIGENCE",
+      phase: "AI Engineering & Systems Architecture",
       badge: "ACTIVE ROLE",
       highlights: [
         "Architecting AI-powered chatbot systems for enterprise ERPs with GPT-4 function calling.",
@@ -26,7 +27,7 @@ export function Experience() {
       location: "Surat, Gujarat",
       period: "Sep 2025 – Dec 2025",
       current: false,
-      phase: "PHASE 02 // BACKEND SYSTEMS & INTEGRATIONS",
+      phase: "Backend Systems & Payment Infrastructure",
       badge: "PRODUCTION BACKEND",
       highlights: [
         "Built end-to-end e-commerce backend platform handling product catalog, shopping cart state, and high-concurrency order processing.",
@@ -42,7 +43,7 @@ export function Experience() {
       location: "Ahmedabad, Gujarat",
       period: "Jan 2025 – Jun 2025",
       current: false,
-      phase: "PHASE 01 // MICROSERVICES & ENTERPRISE ERP",
+      phase: "Microservices Architecture & Workflows",
       badge: "ENTERPRISE SOFTWARE",
       highlights: [
         "Developed NestJS microservices architecture for a comprehensive College ERP platform.",
@@ -55,14 +56,20 @@ export function Experience() {
   ]
 
   return (
-    <section id="experience" className="py-24 bg-[#07080c] relative border-t border-slate-900">
-      <div className="container mx-auto px-4 max-w-6xl space-y-12">
+    <section id="experience" className="py-24 sm:py-32 relative border-t border-slate-900/80">
+      <div className="container mx-auto px-4 max-w-6xl space-y-12 sm:space-y-16">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-800">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-800"
+        >
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 font-mono text-xs text-emerald-400 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-emerald-400 uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
               <Briefcase className="w-3.5 h-3.5" />
-              <span>04 // Career Trajectory</span>
+              <span>Career Trajectory & Track Record</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-slate-100">
               Engineering Evolution Timeline
@@ -71,37 +78,41 @@ export function Experience() {
           <p className="text-slate-400 text-sm max-w-md font-mono leading-relaxed">
             From MERN microservices and high-throughput backend payment engines to production AI agents and LLM tool execution.
           </p>
-        </div>
+        </motion.div>
 
         {/* Timeline Items */}
-        <div className="space-y-8 relative before:absolute before:inset-0 before:left-4 md:before:left-1/2 before:-ml-px before:w-0.5 before:bg-slate-800">
+        <div className="space-y-8 relative before:absolute before:inset-0 before:left-4 md:before:left-1/2 before:-ml-px before:w-0.5 before:bg-gradient-to-b before:from-sky-500/40 before:via-emerald-500/30 before:to-slate-800">
           {experiences.map((exp, idx) => (
-            <div
+            <motion.div
               key={idx}
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.65, delay: idx * 0.15 }}
               className="relative flex flex-col md:flex-row items-start md:items-center justify-between md:odd:flex-row-reverse group"
             >
               {/* Central Node Indicator */}
-              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 flex items-center justify-center w-8 h-8 rounded-full border border-slate-700 bg-slate-950 z-10">
+              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 flex items-center justify-center w-8 h-8 rounded-full border border-slate-700 bg-slate-950 z-10 shadow-lg">
                 <div
                   className={`w-2.5 h-2.5 rounded-full ${
-                    exp.current ? "bg-sky-400 animate-pulse shadow-[0_0_10px_#38bdf8]" : "bg-slate-600"
+                    exp.current ? "bg-sky-400 animate-pulse shadow-[0_0_12px_#38bdf8]" : "bg-slate-500"
                   }`}
                 />
               </div>
 
               {/* Card Container */}
-              <div className="ml-12 md:ml-0 w-[calc(100%-3rem)] md:w-[46%] tech-card p-6 rounded-2xl border border-slate-800 space-y-4">
+              <div className="ml-12 md:ml-0 w-[calc(100%-3rem)] md:w-[46%] tech-card p-5 sm:p-6 rounded-2xl border border-slate-800 space-y-4 hover:border-sky-500/40 transition-all duration-300 shadow-xl">
                 <div className="space-y-1.5 pb-3 border-b border-slate-800 font-mono">
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-sky-400 font-semibold">{exp.phase}</span>
                     <span className="text-slate-500">{exp.period}</span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-100 flex items-center gap-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-100 flex items-center gap-2">
                     <span>{exp.role}</span>
                     {exp.current && (
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">
-                        PRESENT
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono font-bold">
+                        ACTIVE
                       </span>
                     )}
                   </h3>
@@ -129,13 +140,13 @@ export function Experience() {
                 {/* Tech Stack Badges */}
                 <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-800/60 font-mono text-[10px]">
                   {exp.techStack.map((tech) => (
-                    <span key={tech} className="px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800">
+                    <span key={tech} className="px-2 py-0.5 rounded-md bg-slate-950 text-slate-300 border border-slate-800/80">
                       {tech}
                     </span>
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

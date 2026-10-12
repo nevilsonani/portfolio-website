@@ -2,18 +2,19 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { ExternalLink, Github, ArrowUpRight, Sparkles, Code2, Layers } from "lucide-react"
+import { ExternalLink, Github, ArrowUpRight, Sparkles, Code2, Layers, Filter } from "lucide-react"
 import { CaseStudyModal, ProjectCaseStudy } from "@/components/case-study-modal"
 
 export function Projects() {
   const [selectedCaseStudy, setSelectedCaseStudy] = useState<ProjectCaseStudy | null>(null)
+  const [activeCategory, setActiveCategory] = useState<string>("All")
 
   const projects: ProjectCaseStudy[] = [
     {
       id: "1",
       title: "AI-Powered ERP Chatbot System",
       subtitle: "GPT-4 function calling engine for natural language inventory, order, and requisition querying.",
-      category: "AI & ERP Architecture",
+      category: "AI & Architecture",
       image: "/college-erp-system.jpg",
       tech: ["Python", "Django", "OpenAI GPT-4", "PostgreSQL", "Redis", "Function Calling"],
       liveUrl: "#",
@@ -43,7 +44,7 @@ export function Projects() {
       id: "2",
       title: "College ERP & HRMS System",
       subtitle: "Institutional management covering student lifecycle, academic planning, and enterprise HR payroll.",
-      category: "Enterprise Microservices",
+      category: "Enterprise Systems",
       image: "/hrms-interface.jpg",
       tech: ["React", "NestJS", "PostgreSQL", "Docker", "Microservices", "Chart.js"],
       liveUrl: "#",
@@ -73,7 +74,7 @@ export function Projects() {
       id: "3",
       title: "E-Commerce Logistics & Payment Engine",
       subtitle: "High-throughput marketplace with Stripe/Razorpay payment webhooks and Delhivery API shipping sync.",
-      category: "E-Commerce & Logistics",
+      category: "Full Stack & APIs",
       image: "/ecommerce-dashboard.jpg",
       tech: ["Next.js", "Node.js", "PostgreSQL", "Razorpay", "Delhivery API", "Redis"],
       liveUrl: "#",
@@ -103,7 +104,7 @@ export function Projects() {
       id: "4",
       title: "Global E-Learning Video Platform",
       subtitle: "Course marketplace with automated AWS S3 video transcoding and secure CDN delivery.",
-      category: "SaaS & Cloud Media",
+      category: "Full Stack & APIs",
       image: "/elearning-platform.png",
       tech: ["Next.js", "Node.js", "MongoDB", "AWS S3", "Stripe", "Cloudinary"],
       liveUrl: "#",
@@ -132,7 +133,7 @@ export function Projects() {
       id: "5",
       title: "Real-Estate & Real-Time Booking Portal",
       subtitle: "Property search engine featuring interactive filters, 3D property tours, and live agent chat.",
-      category: "Real-Time Systems",
+      category: "Enterprise Systems",
       image: "/real-estate-platform.jpg",
       tech: ["MERN Stack", "Socket.io", "Cloudinary", "Nodemailer", "Tailwind CSS"],
       liveUrl: "#",
@@ -161,7 +162,7 @@ export function Projects() {
       id: "6",
       title: "Cineverse Movie Review & Social Hub",
       subtitle: "Community platform for film discovery, dynamic TMDB API integration, and real-time reviews.",
-      category: "Full Stack Web",
+      category: "Full Stack & APIs",
       image: "/movie-streaming-app.jpg",
       tech: ["TypeScript", "Next.js", "MongoDB", "TMDB API", "Tailwind CSS"],
       liveUrl: "#",
@@ -188,32 +189,60 @@ export function Projects() {
     },
   ]
 
+  const categories = ["All", "AI & Architecture", "Enterprise Systems", "Full Stack & APIs"]
+
+  const filteredProjects =
+    activeCategory === "All"
+      ? projects
+      : projects.filter((p) => p.category === activeCategory)
+
   return (
-    <section id="projects" className="py-24 bg-[#07080c] relative border-t border-slate-900">
-      <div className="container mx-auto px-4 max-w-6xl space-y-12">
+    <section id="projects" className="py-24 sm:py-32 relative border-t border-slate-900/80">
+      <div className="container mx-auto px-4 max-w-6xl space-y-10 sm:space-y-12">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-800">
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 font-mono text-xs text-sky-400 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-sky-400 uppercase tracking-widest px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20">
               <Code2 className="w-3.5 h-3.5" />
-              <span>03 // Production Selected Work</span>
+              <span>Featured Systems & Case Studies</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-slate-100">
               Featured Case Studies
             </h2>
           </div>
           <p className="text-slate-400 text-sm max-w-md font-mono leading-relaxed">
-            Real production systems built with high engineering discipline. Click any project to inspect the full technical case study and architecture breakdown.
+            Production-grade systems built with rigorous software discipline. Click any project card to inspect full architectural flows, schemas, and live outcomes.
           </p>
+        </div>
+
+        {/* Filter Pills */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none font-mono text-xs">
+          <span className="text-slate-500 text-[11px] uppercase tracking-wider shrink-0 mr-1 flex items-center gap-1">
+            <Filter className="w-3 h-3" />
+            <span>Filter:</span>
+          </span>
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-3 py-1.5 rounded-lg border transition-all shrink-0 cursor-pointer ${
+                activeCategory === cat
+                  ? "bg-sky-500/20 border-sky-500/60 text-sky-300 font-semibold shadow-[0_0_15px_-3px_rgba(56,189,248,0.3)]"
+                  : "bg-slate-950/80 border-slate-800/80 text-slate-400 hover:text-slate-200 hover:border-slate-700"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
 
         {/* Project Cards Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
+          {filteredProjects.map((project) => (
             <div
               key={project.id}
               onClick={() => setSelectedCaseStudy(project)}
-              className="group tech-card rounded-2xl overflow-hidden cursor-pointer border border-slate-800/90 flex flex-col justify-between"
+              className="group tech-card rounded-2xl overflow-hidden cursor-pointer border border-slate-800/90 flex flex-col justify-between hover:border-sky-500/50 transition-all duration-300 shadow-xl"
             >
               <div>
                 {/* Visual Image Banner */}
@@ -222,41 +251,43 @@ export function Projects() {
                     src={project.image || "/placeholder.jpg"}
                     alt={project.title}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-108"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0f17] via-transparent to-transparent opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0f17] via-slate-950/20 to-transparent opacity-90" />
 
                   <div className="absolute top-3 left-3">
-                    <span className="px-2.5 py-1 rounded bg-slate-950/80 text-sky-400 border border-sky-500/30 text-[10px] font-mono font-bold backdrop-blur-md">
-                      {project.category}
+                    <span className="px-2.5 py-1 rounded-full bg-slate-950/80 text-sky-300 border border-sky-500/30 text-[10px] font-mono font-bold backdrop-blur-md flex items-center gap-1.5 shadow-md">
+                      <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+                      <span>{project.category}</span>
                     </span>
                   </div>
 
-                  <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="p-2 bg-sky-500 text-slate-950 rounded-lg inline-flex items-center justify-center font-bold">
+                  <div className="absolute bottom-3 right-3 opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="p-2 bg-sky-500 text-slate-950 rounded-xl inline-flex items-center justify-center font-bold shadow-[0_0_15px_rgba(56,189,248,0.5)]">
                       <ArrowUpRight className="w-4 h-4" />
                     </span>
                   </div>
                 </div>
 
                 {/* Card Content */}
-                <div className="p-5 space-y-3">
-                  <h3 className="text-lg font-bold font-mono text-slate-100 group-hover:text-sky-300 transition-colors">
+                <div className="p-5 sm:p-6 space-y-2.5">
+                  <h3 className="text-base sm:text-lg font-bold font-mono text-slate-100 group-hover:text-sky-300 transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">
+                  <p className="text-xs text-slate-400 leading-relaxed line-clamp-2 font-sans">
                     {project.subtitle}
                   </p>
                 </div>
               </div>
 
               {/* Bottom Tech Badges */}
-              <div className="p-5 pt-0 space-y-3">
-                <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-800/60">
+              <div className="p-5 sm:p-6 pt-0 space-y-3.5">
+                <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-800/70">
                   {project.tech.slice(0, 4).map((t) => (
                     <span
                       key={t}
-                      className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800"
+                      className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-950/90 text-slate-300 border border-slate-800/80"
                     >
                       {t}
                     </span>
@@ -268,8 +299,8 @@ export function Projects() {
                   )}
                 </div>
 
-                <div className="text-[11px] font-mono text-sky-400 font-semibold group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                  <span>INSPECT CASE STUDY</span>
+                <div className="text-[11px] font-mono text-sky-400 font-bold group-hover:translate-x-1 transition-transform inline-flex items-center gap-1.5">
+                  <span>INSPECT FULL ARCHITECTURE</span>
                   <span>→</span>
                 </div>
               </div>

@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect } from "react"
 import { X, ExternalLink, Github, CheckCircle2, Cpu, Server, Database, Layers, ArrowRight, ShieldCheck } from "lucide-react"
 import Image from "next/image"
 
@@ -31,18 +32,30 @@ interface CaseStudyModalProps {
 }
 
 export function CaseStudyModal({ project, onClose }: CaseStudyModalProps) {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose()
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [onClose])
+
   if (!project) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/80 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200">
+    <div
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200 cursor-pointer"
+    >
       <div
-        className="relative w-full max-w-4xl max-h-[90vh] bg-[#0d0f17] border border-slate-800 rounded-2xl shadow-2xl overflow-y-auto my-auto font-sans text-slate-200 text-sm"
+        className="relative w-full max-w-4xl max-h-[90vh] bg-[#0d0f17] border border-slate-800 rounded-2xl shadow-2xl overflow-y-auto my-auto font-sans text-slate-200 text-sm cursor-default"
         onClick={(e) => e.stopPropagation()}
       >
+
         {/* Sticky Modal Top Nav */}
         <div className="sticky top-0 z-20 flex items-center justify-between p-4 px-6 bg-[#0d0f17]/90 backdrop-blur-md border-b border-slate-800/80">
           <div className="flex items-center gap-3 font-mono text-xs">
-            <span className="text-sky-400 font-bold uppercase tracking-wider">CASE STUDY // 0{project.id}</span>
+            <span className="text-sky-400 font-bold uppercase tracking-wider">CASE STUDY SPECIFICATION</span>
             <span className="text-slate-600">|</span>
             <span className="text-slate-300 font-semibold">{project.title}</span>
           </div>

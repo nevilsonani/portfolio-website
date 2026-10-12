@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { Cpu, Server, Database, Cloud, Code2, ShoppingBag, Terminal, Sparkles, DatabaseZap, Layers } from "lucide-react"
 
 export function TechEcosystem() {
@@ -57,14 +58,20 @@ export function TechEcosystem() {
       : technologies.filter((t) => t.category === activeCategory)
 
   return (
-    <section id="skills" className="py-24 bg-[#07080c] relative border-t border-slate-900">
-      <div className="container mx-auto px-4 max-w-6xl space-y-12">
+    <section id="skills" className="py-24 sm:py-32 relative border-t border-slate-900/80">
+      <div className="container mx-auto px-4 max-w-6xl space-y-12 sm:space-y-16">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-800">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-800"
+        >
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 font-mono text-xs text-sky-400 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-sky-400 uppercase tracking-widest px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20">
               <Terminal className="w-3.5 h-3.5" />
-              <span>05 // Production Technical Stack</span>
+              <span>Production Tech Stack & Tools</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-slate-100">
               Advanced Skills & Systems Ecosystem
@@ -73,7 +80,7 @@ export function TechEcosystem() {
           <p className="text-slate-400 text-sm max-w-md font-mono leading-relaxed">
             From RAG & Vector Databases to Node.js/Express, Python/Django, SQL query optimization, Shopify integrations, and enterprise microservices.
           </p>
-        </div>
+        </motion.div>
 
         {/* Filter Pills */}
         <div className="flex flex-wrap gap-2 pb-2">
@@ -83,10 +90,10 @@ export function TechEcosystem() {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 py-2 rounded-xl text-xs font-mono transition-all border ${
+                className={`px-4 py-2 rounded-xl text-xs font-mono transition-all border cursor-pointer ${
                   isActive
-                    ? "bg-sky-500 text-slate-950 font-bold border-sky-400 shadow-[0_0_15px_-3px_rgba(56,189,248,0.4)]"
-                    : "bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200"
+                    ? "bg-sky-500 text-slate-950 font-bold border-sky-400 shadow-[0_0_20px_-3px_rgba(56,189,248,0.5)] scale-[1.02]"
+                    : "bg-slate-900/80 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200"
                 }`}
               >
                 {cat.label}
@@ -96,22 +103,29 @@ export function TechEcosystem() {
         </div>
 
         {/* Tech Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 font-mono">
-          {filteredTech.map((item, idx) => (
-            <div
-              key={idx}
-              className="tech-card p-4 rounded-xl border border-slate-800/80 space-y-2 hover:border-sky-500/40 transition-colors"
-            >
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold text-slate-100">{item.name}</h3>
-                <span className="text-[9px] px-2 py-0.5 rounded bg-slate-900 text-emerald-400 border border-slate-800">
-                  {item.level}
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-400 leading-snug font-sans">{item.usage}</p>
-            </div>
-          ))}
-        </div>
+        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 font-mono">
+          <AnimatePresence>
+            {filteredTech.map((item) => (
+              <motion.div
+                key={item.name}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.25 }}
+                className="tech-card p-4 sm:p-5 rounded-xl border border-slate-800/80 space-y-2 hover:border-sky-500/50 hover:shadow-[0_8px_30px_rgba(56,189,248,0.15)] transition-all duration-300"
+              >
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-bold text-slate-100">{item.name}</h3>
+                  <span className="text-[9px] px-2 py-0.5 rounded-full bg-slate-900 text-emerald-400 border border-slate-800 font-bold">
+                    {item.level}
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-400 leading-snug font-sans">{item.usage}</p>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   )
